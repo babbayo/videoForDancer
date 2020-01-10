@@ -11,3 +11,7 @@ https://stackoverflow.com/questions/39349949/swift-playing-videos-from-ios-phass
 
 ui
 https://uxplanet.org/top-15-seekbar-and-slider-github-ui-libraries-and-components-java-swift-kotlin-d0f6a9658be3
+
+https://github.com/AppsBoulevard/ABVideoRangeSlider
+
+https://www.zerotoappstore.com/how-to-make-netflix-video-player.html
