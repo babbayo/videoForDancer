@@ -7,20 +7,29 @@
 //
 
 import UIKit
+import Photos
 import Foundation
 import AVFoundation
 
-class ViewController: UIViewController, UINavigationControllerDelegate {
+class ViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     
+    let imageManager = PHCachingImageManager()
     let player = AVPlayer()
-    let speedRate: Float = 1.0
+    private var speedRate: Float = 1.0
     
     let timeRemainingFormatter: DateComponentsFormatter = {
         let formatter = DateComponentsFormatter()
         formatter.zeroFormattingBehavior = .pad
         formatter.allowedUnits = [.minute, .second]
-        
         return formatter
+    }()
+    
+    lazy var imagePicker: UIImagePickerController = {
+        let picker = UIImagePickerController()
+        picker.sourceType = .photoLibrary
+        picker.delegate = self
+        picker.mediaTypes = ["public.movie"]
+        return picker
     }()
     
     /**
@@ -33,7 +42,7 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
      The `NSKeyValueObservation` for the KVO on `\AVPlayer.currentItem?.status`.
      */
     private var playerItemStatusObserver: NSKeyValueObservation?
-
+    
     /**
      The `NSKeyValueObservation` for the KVO on `\AVPlayer.timeControlStatus`.
      */
@@ -65,25 +74,35 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
         }
         // Create an asset instance to represent the media file.
         let asset = AVURLAsset(url: movieURL, options: nil)
-
+        
         loadPropertyValues(forAsset: asset)
     }
     
-    //    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-    //
-    //        if let originalImage: UIImage = info[.originalImage] as? UIImage {
-    //            self.imageView.setImage(originalImage, for: .normal)
-    //        }
-    //        self.dismiss(animated: true, completion: nil)
-    //    }
-    
-    @IBAction func flipHorizontallyBarButtonItemTouched(_ sender: UIBarButtonItem) {
-        UIView.animate(withDuration: 0.2) { [unowned self] in
-            self.playerView.transform = self.playerView.transform.concatenating(CGAffineTransform(scaleX: -1, y: 1))
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        if let url = info[.mediaURL] as? URL {
+            let asset = AVURLAsset(url:url, options: nil)
+            loadPropertyValues(forAsset: asset)
+        } else {
+            print("temp")
         }
+        
+        picker.dismiss(animated: true, completion: nil)
     }
     
     // MARK: - Asset Property Handling
+    
+    func playVideo(asset:PHAsset) {
+        guard (asset.mediaType == .video) else {
+            print("Not a valid video media type")
+            return
+        }
+        imageManager.requestAVAsset(forVideo: asset, options: nil, resultHandler: {(asset: AVAsset?, audioMix: AVAudioMix?, info: [AnyHashable : Any]?) in
+            let asset = asset as! AVURLAsset
+            self.loadPropertyValues(forAsset: asset)
+        })
+    }
+    
     func loadPropertyValues(forAsset newAsset: AVURLAsset) {
         print("load: "+newAsset.url.path)
         let assetKeysRequiredToPlay = [
@@ -148,11 +167,11 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
                 (player, change) in
                 self.setPlayPauseButtonImage()
         }
-//
-//        self.playerItemSpeedRateObserver = self.player.observe(\AVPlayer.rate, options: [.initial, .new]) { [unowned self]
-//                (player, change) in
-//                self.setPlayPauseButtonImage()
-//        }
+        //
+        //        self.playerItemSpeedRateObserver = self.player.observe(\AVPlayer.rate, options: [.initial, .new]) { [unowned self]
+        //                (player, change) in
+        //                self.setPlayPauseButtonImage()
+        //        }
         
         /*
          Create a periodic observer to update the movie player time slider
@@ -179,6 +198,10 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
     }
     
     // MARK: - IBActions
+    @IBAction func tapModal(_ sender: UIButton) {
+        self.present(imagePicker, animated: true, completion: nil)
+    }
+    
     @IBAction func togglePlay(_ sender: UIButton) {
         switch player.timeControlStatus {
         case .playing:
@@ -190,7 +213,7 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
              the beginning.
              */
             if player.currentItem?.currentTime() == player.currentItem?.duration {
-                player.currentItem?.seek(to: CMTime.zero)
+                player.currentItem?.seek(to: CMTime.zero, completionHandler: nil)
             }
             // The player is currently paused. Begin playback.
             player.play()
@@ -200,27 +223,27 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
     }
     
     @IBAction func toggleSpeedRate(_ sender: UIButton) {
-        let prevRate = self.player.rate
-        var tempRate: Float?
-        if prevRate == 1.0 {
-            tempRate = 2.0
-        } else if prevRate > 1.0 {
-            tempRate = 0.7
-        } else if prevRate < 1.0 {
-            tempRate = 1
+        print("toogleSpeedRate: \(self.player.rate)")
+        speedRate = speedRate == 1.0 ? 2.0 : (speedRate > 1.0 ? 0.7 : 1.0)
+        if self.player.timeControlStatus == .playing {
+            self.player.rate = speedRate
         }
-        guard let rate = tempRate else { return }
-        self.player.rate = rate
-        let title = "\(rate)x"
+        
+        let title = "\(speedRate)x"
         self.speedRateButton.setTitle(title, for: .normal)
     }
-
+    
     /// - Tag: TimeSliderDidChange
     @IBAction func timeSliderDidChange(_ sender: UISlider) {
         let newTime = CMTime(seconds: Double(sender.value), preferredTimescale: 600)
         player.seek(to: newTime, toleranceBefore: CMTime.zero, toleranceAfter: CMTime.zero)
     }
     
+    @IBAction func flipHorizontallyBarButtonItemTouched(_ sender: UIBarButtonItem) {
+        UIView.animate(withDuration: 0.2) { [unowned self] in
+            self.playerView.transform = self.playerView.transform.concatenating(CGAffineTransform(scaleX: -1, y: 1))
+        }
+    }
     // MARK: - Error Handling
     func handleErrorWithMessage(_ message: String, error: Error? = nil) {
         if let err = error {
@@ -251,6 +274,9 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
             
             switch self.player.timeControlStatus {
             case .playing:
+                if self.player.rate != self.speedRate {
+                    self.player.rate = self.speedRate;
+                }
                 buttonImage = UIImage(systemName: "pause.circle")
             case .paused, .waitingToPlayAtSpecifiedRate:
                 buttonImage = UIImage(systemName: "play.circle")
