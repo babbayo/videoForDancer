@@ -11,11 +11,15 @@ import Photos
 import Foundation
 import AVFoundation
 
-class ViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+class ViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, ABVideoRangeSliderDelegate {
     
     let imageManager = PHCachingImageManager()
     let player = AVPlayer()
     private var speedRate: Float = 1.0
+    private var delaySeconds: Int = 0
+    
+    var timerForHide: Timer?
+    var timerForDelay: Timer?
     
     let timeRemainingFormatter: DateComponentsFormatter = {
         let formatter = DateComponentsFormatter()
@@ -29,8 +33,12 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
         picker.sourceType = .photoLibrary
         picker.delegate = self
         picker.mediaTypes = ["public.movie"]
+//        picker.videoQuality = .typeHigh
         return picker
     }()
+    
+    lazy var pauseButtonImage = UIImage(named: "pause")
+    lazy var playButtonImage = UIImage(named: "play")
     
     /**
      A token obtained from the player's
@@ -50,19 +58,16 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
     
     // MARK: - IBOutlet properties
     @IBOutlet weak var playerView: PlayerView!
-    @IBOutlet weak var timeSlider: UISlider!
+//    @IBOutlet weak var timeSlider: UISlider!
     @IBOutlet weak var startTimeLabel: UILabel!
     @IBOutlet weak var durationLabel: UILabel!
     @IBOutlet weak var playPauseButton: UIButton!
     @IBOutlet weak var speedRateButton: UIButton!
-    @IBOutlet weak var errorText: UILabel!
-    
-    //    lazy var imagePicker: UIImagePickerController = {
-    //        let picker = UIImagePickerController()
-    //        picker.sourceType = .savedPhotosAlbum
-    //        picker.delegate = self
-    //        return picker
-    //    }()
+    @IBOutlet weak var delayButton: UIButton!
+    @IBOutlet weak var mirrorModeButton: UIButton!
+    @IBOutlet weak var photoAccessButton: UIButton!
+    @IBOutlet weak var videoRangeSlider: ABVideoRangeSlider!
+
     
     // MARK: - View Controller
     override func viewDidLoad() {
@@ -76,8 +81,47 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
         let asset = AVURLAsset(url: movieURL, options: nil)
         
         loadPropertyValues(forAsset: asset)
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(toggleControls))
+        view.addGestureRecognizer(tapGesture)
+        
+        do {
+            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: [])
+        }
+        catch {
+            print("Setting category to AVAudioSessionCategoryPlayback failed.")
+        }
     }
     
+    @objc func toggleControls() {
+//        timeSlider.isHidden = !timeSlider.isHidden
+        startTimeLabel.isHidden = !startTimeLabel.isHidden
+        durationLabel.isHidden = !durationLabel.isHidden
+        playPauseButton.isHidden = !playPauseButton.isHidden
+        speedRateButton.isHidden = !speedRateButton.isHidden
+        delayButton.isHidden = !delayButton.isHidden
+        mirrorModeButton.isHidden = !mirrorModeButton.isHidden
+        photoAccessButton.isHidden = !photoAccessButton.isHidden
+        resetTimer()
+    }
+    
+    @objc func hideControls() {
+//        timeSlider.isHidden = true
+        startTimeLabel.isHidden = true
+        durationLabel.isHidden = true
+        playPauseButton.isHidden = true
+        speedRateButton.isHidden = true
+        delayButton.isHidden = true
+        mirrorModeButton.isHidden = true
+        photoAccessButton.isHidden = true
+    }
+    
+    func resetTimer() {
+        timerForHide?.invalidate()
+        timerForHide = Timer.scheduledTimer(timeInterval: 10.0, target: self, selector: #selector(hideControls), userInfo: nil, repeats: false)
+    }
+    
+    // MARK: imagePickerController handling
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
         if let url = info[.mediaURL] as? URL {
@@ -90,6 +134,7 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
         picker.dismiss(animated: true, completion: nil)
     }
     
+    
     // MARK: - Asset Property Handling
     
     func playVideo(asset:PHAsset) {
@@ -98,12 +143,18 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
             return
         }
         imageManager.requestAVAsset(forVideo: asset, options: nil, resultHandler: {(asset: AVAsset?, audioMix: AVAudioMix?, info: [AnyHashable : Any]?) in
-            let asset = asset as! AVURLAsset
-            self.loadPropertyValues(forAsset: asset)
+            guard let newAsset = asset as? AVURLAsset else {
+                print("is not avurl asset")
+                return
+            }
+            self.loadPropertyValues(forAsset: newAsset)
         })
     }
     
     func loadPropertyValues(forAsset newAsset: AVURLAsset) {
+        videoRangeSlider.setAsset(asset: newAsset)
+        videoRangeSlider.delegate = self
+        
         print("load: "+newAsset.url.path)
         let assetKeysRequiredToPlay = [
             "playable",
@@ -146,6 +197,21 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
         return true
     }
     
+    // MARK: - ABVideoRangeSlider handling
+    func didChangeValue(videoRangeSlider: ABVideoRangeSlider, startTime: Float64, endTime: Float64) {
+//        print("didChangeValue : \(startTime) - \(endTime)")
+    }
+    
+    func indicatorDidChangePosition(videoRangeSlider: ABVideoRangeSlider, position: Float64) {
+        let current = player.currentTime()
+        let newTime = CMTime(seconds: Double(position), preferredTimescale: 600)
+        if current != newTime {
+            print("position of indicator: \(position)|\(current)|\(newTime)")
+            player.seek(to: newTime, toleranceBefore: CMTime.zero, toleranceAfter: CMTime.zero)
+        }
+        
+    }
+    
     // MARK: - Key-Value Observing
     
     /**
@@ -167,12 +233,7 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
                 (player, change) in
                 self.setPlayPauseButtonImage()
         }
-        //
-        //        self.playerItemSpeedRateObserver = self.player.observe(\AVPlayer.rate, options: [.initial, .new]) { [unowned self]
-        //                (player, change) in
-        //                self.setPlayPauseButtonImage()
-        //        }
-        
+     
         /*
          Create a periodic observer to update the movie player time slider
          during playback.
@@ -180,9 +241,20 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
         let interval = CMTime(value: 1, timescale: 2)
         self.timeObserverToken =
             self.player.addPeriodicTimeObserver(forInterval: interval, queue: DispatchQueue.main) { [unowned self] time in
-                let timeElapsed = Float(time.seconds)
-                self.timeSlider.value = Float(timeElapsed)
-                self.startTimeLabel.text = self.createTimeString(time: timeElapsed)
+                
+                let timeElapsed = Float64(time.seconds)
+                let start = self.videoRangeSlider.getStartPosition()
+                let end = self.videoRangeSlider.getEndPosition()
+                if end < timeElapsed {
+//                    print("time chekcer : \(start) < \(timeElapsed) < \(end) ")
+                    let newTime = CMTime(seconds: Double(start), preferredTimescale: 600)
+                    self.player.seek(to: newTime, toleranceBefore: CMTime.zero, toleranceAfter: CMTime.zero)
+                    return
+                }
+                
+//                self.timeSlider.value = Float(timeElapsed)
+                self.videoRangeSlider.setProgressPosition(seconds: Float(timeElapsed))
+                self.startTimeLabel.text = self.createTimeString(time: Float(timeElapsed))
         }
         
         playerItemStatusObserver =
@@ -216,10 +288,24 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
                 player.currentItem?.seek(to: CMTime.zero, completionHandler: nil)
             }
             // The player is currently paused. Begin playback.
-            player.play()
+            if delaySeconds > 0 {
+                timerForDelay?.invalidate()
+                let interval = TimeInterval.init(delaySeconds)
+                Timer.scheduledTimer(withTimeInterval: interval, repeats: false, block: {(timer) in
+                    self.player.play()
+                    })
+//                timerForDelay = Timer.scheduledTimer(timeInterval: (Double)delaySeconds, target: self, selector: #selector(togglePlay), userInfo: nil, repeats: false)
+            } else {
+                player.play()
+            }
         default:
             player.pause()
         }
+    }
+    
+    @objc func togglePlay() {
+        print("togglePlay")
+           player.play()
     }
     
     @IBAction func toggleSpeedRate(_ sender: UIButton) {
@@ -233,8 +319,16 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
         self.speedRateButton.setTitle(title, for: .normal)
     }
     
+    @IBAction func toggleDelay(_ sender: UIButton) {
+        print("toogleSpeedRate: \(self.player.rate)")
+        delaySeconds = delaySeconds == 0 ? 3 : (delaySeconds == 3 ? 5 : 0)
+        let title = "\(delaySeconds)초뒤에"
+         self.delayButton.setTitle(title, for: .normal)
+    }
+    
     /// - Tag: TimeSliderDidChange
     @IBAction func timeSliderDidChange(_ sender: UISlider) {
+        print("timeSliderDidChange")
         let newTime = CMTime(seconds: Double(sender.value), preferredTimescale: 600)
         player.seek(to: newTime, toleranceBefore: CMTime.zero, toleranceAfter: CMTime.zero)
     }
@@ -260,6 +354,7 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
     }
     
     // MARK: - Utilities
+    
     func createTimeString(time: Float) -> String {
         let components = NSDateComponents()
         components.second = Int(max(0.0, time))
@@ -277,11 +372,11 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
                 if self.player.rate != self.speedRate {
                     self.player.rate = self.speedRate;
                 }
-                buttonImage = UIImage(systemName: "pause.circle")
+                buttonImage = self.pauseButtonImage
             case .paused, .waitingToPlayAtSpecifiedRate:
-                buttonImage = UIImage(systemName: "play.circle")
+                buttonImage = self.playButtonImage
             @unknown default:
-                buttonImage = UIImage(systemName: "pause.circle")
+                buttonImage = self.pauseButtonImage
                 return
             }
             guard let image = buttonImage else { return }
@@ -300,7 +395,6 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
              `.failed`.
              */
             self.playPauseButton.isEnabled = false
-            self.timeSlider.isEnabled = false
             self.startTimeLabel.isEnabled = false
             self.durationLabel.isEnabled = false
             self.handleErrorWithMessage(currentItem.error!.localizedDescription, error: currentItem.error)
@@ -319,10 +413,6 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
             let newDurationSeconds = currentItem.duration.seconds
             
             let curTime = Float(CMTimeGetSeconds(self.player.currentTime()))
-            
-            self.timeSlider.maximumValue = Float(newDurationSeconds)
-            self.timeSlider.value = curTime
-            self.timeSlider.isEnabled = true
             self.startTimeLabel.isEnabled = true
             self.startTimeLabel.text = self.createTimeString(time: curTime)
             self.durationLabel.isEnabled = true
@@ -330,7 +420,6 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
             
         default:
             self.playPauseButton.isEnabled = false
-            self.timeSlider.isEnabled = false
             self.startTimeLabel.isEnabled = false
             self.durationLabel.isEnabled = false
         }

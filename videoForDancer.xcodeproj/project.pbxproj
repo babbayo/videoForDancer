@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CE38449523CAEF0C003E4AC3 /* ABVideoHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE38448D23CAEF0B003E4AC3 /* ABVideoHelper.swift */; };
+		CE38449623CAEF0C003E4AC3 /* ABVideoRangeSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE38448E23CAEF0B003E4AC3 /* ABVideoRangeSlider.swift */; };
+		CE38449723CAEF0C003E4AC3 /* ABEndIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE38448F23CAEF0B003E4AC3 /* ABEndIndicator.swift */; };
+		CE38449823CAEF0C003E4AC3 /* ABBorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE38449023CAEF0B003E4AC3 /* ABBorder.swift */; };
+		CE38449923CAEF0C003E4AC3 /* ABProgressIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE38449123CAEF0B003E4AC3 /* ABProgressIndicator.swift */; };
+		CE38449A23CAEF0C003E4AC3 /* ABStartIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE38449223CAEF0B003E4AC3 /* ABStartIndicator.swift */; };
+		CE38449B23CAEF0C003E4AC3 /* ABTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE38449323CAEF0B003E4AC3 /* ABTimeView.swift */; };
+		CE38449C23CAEF0C003E4AC3 /* ABThumbnailsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE38449423CAEF0B003E4AC3 /* ABThumbnailsManager.swift */; };
 		CE73F45023C600CC00B26D15 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE73F44F23C600CC00B26D15 /* AppDelegate.swift */; };
 		CE73F45223C600CC00B26D15 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE73F45123C600CC00B26D15 /* SceneDelegate.swift */; };
 		CE73F45423C600CC00B26D15 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE73F45323C600CC00B26D15 /* ViewController.swift */; };
@@ -37,6 +45,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		CE38448D23CAEF0B003E4AC3 /* ABVideoHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ABVideoHelper.swift; sourceTree = "<group>"; };
+		CE38448E23CAEF0B003E4AC3 /* ABVideoRangeSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ABVideoRangeSlider.swift; sourceTree = "<group>"; };
+		CE38448F23CAEF0B003E4AC3 /* ABEndIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ABEndIndicator.swift; sourceTree = "<group>"; };
+		CE38449023CAEF0B003E4AC3 /* ABBorder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ABBorder.swift; sourceTree = "<group>"; };
+		CE38449123CAEF0B003E4AC3 /* ABProgressIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ABProgressIndicator.swift; sourceTree = "<group>"; };
+		CE38449223CAEF0B003E4AC3 /* ABStartIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ABStartIndicator.swift; sourceTree = "<group>"; };
+		CE38449323CAEF0B003E4AC3 /* ABTimeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ABTimeView.swift; sourceTree = "<group>"; };
+		CE38449423CAEF0B003E4AC3 /* ABThumbnailsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ABThumbnailsManager.swift; sourceTree = "<group>"; };
 		CE73F44C23C600CC00B26D15 /* videoForDancer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = videoForDancer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE73F44F23C600CC00B26D15 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CE73F45123C600CC00B26D15 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -80,6 +96,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CE38448C23CAEEF6003E4AC3 /* videoRangeSlider */ = {
+			isa = PBXGroup;
+			children = (
+				CE38449023CAEF0B003E4AC3 /* ABBorder.swift */,
+				CE38448F23CAEF0B003E4AC3 /* ABEndIndicator.swift */,
+				CE38449123CAEF0B003E4AC3 /* ABProgressIndicator.swift */,
+				CE38449223CAEF0B003E4AC3 /* ABStartIndicator.swift */,
+				CE38449423CAEF0B003E4AC3 /* ABThumbnailsManager.swift */,
+				CE38449323CAEF0B003E4AC3 /* ABTimeView.swift */,
+				CE38448D23CAEF0B003E4AC3 /* ABVideoHelper.swift */,
+				CE38448E23CAEF0B003E4AC3 /* ABVideoRangeSlider.swift */,
+			);
+			path = videoRangeSlider;
+			sourceTree = "<group>";
+		};
 		CE73F44323C600CC00B26D15 = {
 			isa = PBXGroup;
 			children = (
@@ -103,6 +134,7 @@
 		CE73F44E23C600CC00B26D15 /* videoForDancer */ = {
 			isa = PBXGroup;
 			children = (
+				CE38448C23CAEEF6003E4AC3 /* videoRangeSlider */,
 				CE73F44F23C600CC00B26D15 /* AppDelegate.swift */,
 				CE73F45123C600CC00B26D15 /* SceneDelegate.swift */,
 				CE73F45323C600CC00B26D15 /* ViewController.swift */,
@@ -267,9 +299,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				CE73F45423C600CC00B26D15 /* ViewController.swift in Sources */,
+				CE38449C23CAEF0C003E4AC3 /* ABThumbnailsManager.swift in Sources */,
+				CE38449723CAEF0C003E4AC3 /* ABEndIndicator.swift in Sources */,
+				CE38449823CAEF0C003E4AC3 /* ABBorder.swift in Sources */,
+				CE38449B23CAEF0C003E4AC3 /* ABTimeView.swift in Sources */,
+				CE38449923CAEF0C003E4AC3 /* ABProgressIndicator.swift in Sources */,
 				CE73F45023C600CC00B26D15 /* AppDelegate.swift in Sources */,
 				CE73F45223C600CC00B26D15 /* SceneDelegate.swift in Sources */,
 				CE73F48423C60A7300B26D15 /* PlayerView.swift in Sources */,
+				CE38449523CAEF0C003E4AC3 /* ABVideoHelper.swift in Sources */,
+				CE38449623CAEF0C003E4AC3 /* ABVideoRangeSlider.swift in Sources */,
+				CE38449A23CAEF0C003E4AC3 /* ABStartIndicator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -374,7 +414,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -428,7 +468,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -443,6 +483,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = BZQJRF4997;
 				INFOPLIST_FILE = videoForDancer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -460,6 +501,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = BZQJRF4997;
 				INFOPLIST_FILE = videoForDancer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
