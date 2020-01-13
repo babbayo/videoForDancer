@@ -15,11 +15,27 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
     
     let imageManager = PHCachingImageManager()
     let player = AVPlayer()
+    
     private var speedRate: Float = 1.0
     private var delaySeconds: Int = 0
     
     var timerForHide: Timer?
-    var timerForDelay: Timer?
+    
+    var alertAudioPlayer: AVAudioPlayer? = {
+        guard let delaySoundEffectURL =
+            Bundle.main.url(forResource: "timerSoundEffect", withExtension: "mp3") else {
+                print("no sound")
+                return nil
+        }
+        do {
+            let audioPlayer = try AVAudioPlayer(contentsOf: delaySoundEffectURL)
+            audioPlayer.prepareToPlay()
+            return audioPlayer
+        } catch let error {
+            print("no AVAudioPlayer")
+            return nil
+        }
+    }()
     
     let timeRemainingFormatter: DateComponentsFormatter = {
         let formatter = DateComponentsFormatter()
@@ -33,12 +49,16 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
         picker.sourceType = .photoLibrary
         picker.delegate = self
         picker.mediaTypes = ["public.movie"]
+        if #available(iOS 11.0, *) {
+            picker.videoExportPreset = AVAssetExportPresetPassthrough
+        }
 //        picker.videoQuality = .typeHigh
         return picker
     }()
     
     lazy var pauseButtonImage = UIImage(named: "pause")
     lazy var playButtonImage = UIImage(named: "play")
+    lazy var timerButtonImage = UIImage(named: "clock")
     
     /**
      A token obtained from the player's
@@ -209,7 +229,6 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
             print("position of indicator: \(position)|\(current)|\(newTime)")
             player.seek(to: newTime, toleranceBefore: CMTime.zero, toleranceAfter: CMTime.zero)
         }
-        
     }
     
     // MARK: - Key-Value Observing
@@ -289,12 +308,7 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
             }
             // The player is currently paused. Begin playback.
             if delaySeconds > 0 {
-                timerForDelay?.invalidate()
-                let interval = TimeInterval.init(delaySeconds)
-                Timer.scheduledTimer(withTimeInterval: interval, repeats: false, block: {(timer) in
-                    self.player.play()
-                    })
-//                timerForDelay = Timer.scheduledTimer(timeInterval: (Double)delaySeconds, target: self, selector: #selector(togglePlay), userInfo: nil, repeats: false)
+                nextDelay(delaySeconds)
             } else {
                 player.play()
             }
@@ -303,14 +317,33 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
         }
     }
     
+    func nextDelay(_ remainSeconds: Int) {
+        let alert = UIAlertController(title: "\(remainSeconds)", message: "", preferredStyle: .alert)
+
+        self.alertAudioPlayer?.play()
+        self.present(alert, animated: true, completion: nil)
+
+        // change to desired number of seconds
+        let now = DispatchTime.now()
+        DispatchQueue.main.asyncAfter(deadline: now + 0.7) {
+            alert.dismiss(animated: true, completion: {() in
+                let nextRemainSecond = remainSeconds - 1
+                if nextRemainSecond <= 0 {
+                    self.player.play()
+                } else {
+                    self.nextDelay(nextRemainSecond)
+                }
+            })
+        }
+    }
+    
     @objc func togglePlay() {
-        print("togglePlay")
-           player.play()
+        player.play()
     }
     
     @IBAction func toggleSpeedRate(_ sender: UIButton) {
         print("toogleSpeedRate: \(self.player.rate)")
-        speedRate = speedRate == 1.0 ? 2.0 : (speedRate > 1.0 ? 0.7 : 1.0)
+        speedRate = speedRate == 1.0 ? 1.3 : (speedRate > 1.0 ? 0.7 : 1.0)
         if self.player.timeControlStatus == .playing {
             self.player.rate = speedRate
         }
@@ -322,8 +355,8 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
     @IBAction func toggleDelay(_ sender: UIButton) {
         print("toogleSpeedRate: \(self.player.rate)")
         delaySeconds = delaySeconds == 0 ? 3 : (delaySeconds == 3 ? 5 : 0)
-        let title = "\(delaySeconds)초뒤에"
-         self.delayButton.setTitle(title, for: .normal)
+        let delayText = delaySeconds == 0 ? "" : "\(delaySeconds)";
+         self.delayButton.setTitle(delayText, for: .normal)
     }
     
     /// - Tag: TimeSliderDidChange

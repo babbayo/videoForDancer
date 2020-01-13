@@ -16,8 +16,8 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DKI-pY-hlc" customClass="PlayerView" customModule="videoForDancer" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
-                                <color key="backgroundColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                             </view>
                             <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8wK-Ix-FD8">
                                 <rect key="frame" x="187" y="428" width="40" height="40"/>
@@ -25,27 +25,33 @@
                                     <constraint firstAttribute="height" constant="40" id="9JN-ut-g5h"/>
                                     <constraint firstAttribute="width" constant="40" id="XyJ-kZ-6by"/>
                                 </constraints>
-                                <state key="normal" image="play"/>
+                                <state key="normal" image="play">
+                                    <color key="titleColor" systemColor="opaqueSeparatorColor" red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
                                 <connections>
                                     <action selector="togglePlay:" destination="BYZ-38-t0r" eventType="touchUpInside" id="kZR-kf-0qj"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="upP-6o-QNu">
                                 <rect key="frame" x="352" y="761" width="42" height="21"/>
+                                <color key="backgroundColor" systemColor="opaqueSeparatorColor" red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a1V-U2-iyf">
                                 <rect key="frame" x="20" y="761" width="42" height="21"/>
+                                <color key="backgroundColor" systemColor="opaqueSeparatorColor" red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OHH-cu-eTD">
                                 <rect key="frame" x="242" y="756.66666666666663" width="42" height="30"/>
+                                <color key="backgroundColor" systemColor="opaqueSeparatorColor" red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" title="Mirror">
-                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
                                     <action selector="flipHorizontallyBarButtonItemTouched:" destination="BYZ-38-t0r" eventType="touchUpInside" id="aNM-Ub-FYT"/>
@@ -53,15 +59,16 @@
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7fM-h2-hFa">
                                 <rect key="frame" x="192" y="756.66666666666663" width="30" height="30"/>
+                                <color key="backgroundColor" systemColor="opaqueSeparatorColor" red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" title="1x">
-                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
                                     <action selector="toggleSpeedRate:" destination="BYZ-38-t0r" eventType="touchUpInside" id="U3g-Mt-UUH"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VtV-br-ABF">
-                                <rect key="frame" x="364" y="108" width="30" height="28"/>
+                                <rect key="frame" x="364" y="64" width="30" height="28"/>
                                 <state key="normal" image="folder">
                                     <color key="titleColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 </state>
@@ -76,17 +83,18 @@
                                     <constraint firstAttribute="height" constant="60" id="xgP-N9-mzL"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z7U-hG-y3c">
-                                <rect key="frame" x="123" y="756.66666666666663" width="49" height="30"/>
-                                <state key="normal" title="0초뒤에">
-                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z7U-hG-y3c">
+                                <rect key="frame" x="142" y="756.66666666666663" width="30" height="30"/>
+                                <color key="backgroundColor" systemColor="opaqueSeparatorColor" red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" image="clock">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
                                     <action selector="toggleDelay:" destination="BYZ-38-t0r" eventType="touchUpInside" id="mSx-n0-g9n"/>
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="gLB-ih-jKh" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="53h-ug-kSa"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="DKI-pY-hlc" secondAttribute="bottom" id="5xB-ES-ogs"/>
@@ -113,7 +121,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <navigationItem key="navigationItem" id="l9Z-2s-0hR"/>
+                    <navigationItem key="navigationItem" largeTitleDisplayMode="never" id="l9Z-2s-0hR"/>
                     <connections>
                         <outlet property="delayButton" destination="Z7U-hG-y3c" id="5Yi-fV-6fz"/>
                         <outlet property="durationLabel" destination="upP-6o-QNu" id="R4p-dx-U1E"/>
@@ -133,10 +141,9 @@
         <!--Navigation Controller-->
         <scene sceneID="ute-PJ-H5l">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="6lk-KG-PTw" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="6lk-KG-PTw" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="mZ8-rP-pfE">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -150,6 +157,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="clock" width="30" height="30"/>
         <image name="folder" width="30" height="28"/>
         <image name="play" width="54" height="68"/>
     </resources>

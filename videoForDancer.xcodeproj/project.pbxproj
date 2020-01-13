@@ -25,6 +25,7 @@
 		CE73F47223C600D100B26D15 /* videoForDancerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE73F47123C600D100B26D15 /* videoForDancerUITests.swift */; };
 		CE73F48423C60A7300B26D15 /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE73F48323C60A7300B26D15 /* PlayerView.swift */; };
 		CE73F48623C6B8C700B26D15 /* video.m4v in Resources */ = {isa = PBXBuildFile; fileRef = CE73F48523C613C400B26D15 /* video.m4v */; };
+		CEC4770323CC61C2003CE2F9 /* timerSoundEffect.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CEC4770223CC61C2003CE2F9 /* timerSoundEffect.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +70,7 @@
 		CE73F47323C600D100B26D15 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CE73F48323C60A7300B26D15 /* PlayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
 		CE73F48523C613C400B26D15 /* video.m4v */ = {isa = PBXFileReference; lastKnownFileType = file; path = video.m4v; sourceTree = "<group>"; };
+		CEC4770223CC61C2003CE2F9 /* timerSoundEffect.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = timerSoundEffect.mp3; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,6 +143,7 @@
 				CE73F45523C600CC00B26D15 /* Main.storyboard */,
 				CE73F48323C60A7300B26D15 /* PlayerView.swift */,
 				CE73F45823C600D000B26D15 /* Assets.xcassets */,
+				CEC4770223CC61C2003CE2F9 /* timerSoundEffect.mp3 */,
 				CE73F48523C613C400B26D15 /* video.m4v */,
 				CE73F45A23C600D000B26D15 /* LaunchScreen.storyboard */,
 				CE73F45D23C600D000B26D15 /* Info.plist */,
@@ -273,6 +276,7 @@
 				CE73F48623C6B8C700B26D15 /* video.m4v in Resources */,
 				CE73F45C23C600D000B26D15 /* LaunchScreen.storyboard in Resources */,
 				CE73F45923C600D000B26D15 /* Assets.xcassets in Resources */,
+				CEC4770323CC61C2003CE2F9 /* timerSoundEffect.mp3 in Resources */,
 				CE73F45723C600CC00B26D15 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -134,7 +134,7 @@ public class ABVideoRangeSlider: UIView, UIGestureRecognizerDelegate {
 
         progressIndicator = ABProgressIndicator(frame: CGRect(x: 0,
                                                               y: -topBorderHeight,
-                                                              width: 10,
+                                                              width: 2,
                                                               height: self.frame.size.height + bottomBorderHeight + topBorderHeight))
         progressIndicator.addGestureRecognizer(progressDrag)
         self.addSubview(progressIndicator)
@@ -368,6 +368,7 @@ public class ABVideoRangeSlider: UIView, UIGestureRecognizerDelegate {
         updateGestureStatus(recognizer: recognizer)
         
         let translation = recognizer.translation(in: self)
+        recognizer.setTranslation(CGPoint.zero, in: self)
 
         let positionLimitStart  = positionFromValue(value: self.startPercentage)
         let positionLimitEnd    = positionFromValue(value: self.endPercentage)
@@ -383,13 +384,11 @@ public class ABVideoRangeSlider: UIView, UIGestureRecognizerDelegate {
             position = positionLimitEnd
         }
 
-        recognizer.setTranslation(CGPoint.zero, in: self)
-
         progressIndicator.center = CGPoint(x: position , y: progressIndicator.center.y)
 
         let percentage = progressIndicator.center.x * 100 / self.frame.width
 
-        let progressSeconds = secondsFromValue(value: progressPercentage)
+        let progressSeconds = secondsFromValue(value: percentage)
 
         self.delegate?.indicatorDidChangePosition(videoRangeSlider: self, position: progressSeconds)
 
