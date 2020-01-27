@@ -129,22 +129,25 @@ public class ABVideoRangeSlider: UIView, UIGestureRecognizerDelegate {
 
         // Setup Progress Indicator
 
+        /*
         let progressDrag = UIPanGestureRecognizer(target:self,
                                                   action: #selector(progressDragged(recognizer:)))
-
+*/
         progressIndicator = ABProgressIndicator(frame: CGRect(x: 0,
                                                               y: -topBorderHeight,
                                                               width: 2,
                                                               height: self.frame.size.height + bottomBorderHeight + topBorderHeight))
-        progressIndicator.addGestureRecognizer(progressDrag)
+        // progressIndicator.addGestureRecognizer(progressDrag)
         self.addSubview(progressIndicator)
 
         // Setup Draggable View
-
+        
         let viewDrag = UIPanGestureRecognizer(target:self,
-                                              action: #selector(viewDragged(recognizer:)))
+                                              action: #selector(progressDragged(recognizer:)))
 
-        draggableView.addGestureRecognizer(viewDrag)
+         draggableView.addGestureRecognizer(viewDrag)
+ 
+ 
         self.draggableView.backgroundColor = .clear
         self.addSubview(draggableView)
         self.sendSubviewToBack(draggableView)
@@ -228,6 +231,8 @@ public class ABVideoRangeSlider: UIView, UIGestureRecognizerDelegate {
         self.asset = asset
         self.superview?.layoutSubviews()
         self.updateThumbnails()
+        self.setStartPosition(seconds: 0)
+        self.setEndPosition(seconds: Float(self.duration))
     }
 
     public func updateThumbnails(){

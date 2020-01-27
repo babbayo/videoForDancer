@@ -20,12 +20,12 @@
 		CE73F45423C600CC00B26D15 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE73F45323C600CC00B26D15 /* ViewController.swift */; };
 		CE73F45723C600CC00B26D15 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE73F45523C600CC00B26D15 /* Main.storyboard */; };
 		CE73F45923C600D000B26D15 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE73F45823C600D000B26D15 /* Assets.xcassets */; };
-		CE73F45C23C600D000B26D15 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE73F45A23C600D000B26D15 /* LaunchScreen.storyboard */; };
 		CE73F46723C600D100B26D15 /* videoForDancerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE73F46623C600D100B26D15 /* videoForDancerTests.swift */; };
 		CE73F47223C600D100B26D15 /* videoForDancerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE73F47123C600D100B26D15 /* videoForDancerUITests.swift */; };
 		CE73F48423C60A7300B26D15 /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE73F48323C60A7300B26D15 /* PlayerView.swift */; };
-		CE73F48623C6B8C700B26D15 /* video.m4v in Resources */ = {isa = PBXBuildFile; fileRef = CE73F48523C613C400B26D15 /* video.m4v */; };
 		CEC4770323CC61C2003CE2F9 /* timerSoundEffect.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CEC4770223CC61C2003CE2F9 /* timerSoundEffect.mp3 */; };
+		CED17CFE23DB26870010849A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CED17CFD23DB26860010849A /* LaunchScreen.storyboard */; };
+		CEDF5FF023DA9CAF0033E7F2 /* sample_video.mov in Resources */ = {isa = PBXBuildFile; fileRef = CEDF5FEF23DA9CAF0033E7F2 /* sample_video.mov */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,13 +54,12 @@
 		CE38449223CAEF0B003E4AC3 /* ABStartIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ABStartIndicator.swift; sourceTree = "<group>"; };
 		CE38449323CAEF0B003E4AC3 /* ABTimeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ABTimeView.swift; sourceTree = "<group>"; };
 		CE38449423CAEF0B003E4AC3 /* ABThumbnailsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ABThumbnailsManager.swift; sourceTree = "<group>"; };
-		CE73F44C23C600CC00B26D15 /* videoForDancer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = videoForDancer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CE73F44C23C600CC00B26D15 /* dancing mirror.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "dancing mirror.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE73F44F23C600CC00B26D15 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CE73F45123C600CC00B26D15 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		CE73F45323C600CC00B26D15 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		CE73F45623C600CC00B26D15 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		CE73F45823C600D000B26D15 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		CE73F45B23C600D000B26D15 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CE73F45D23C600D000B26D15 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CE73F46223C600D000B26D15 /* videoForDancerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = videoForDancerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE73F46623C600D100B26D15 /* videoForDancerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = videoForDancerTests.swift; sourceTree = "<group>"; };
@@ -69,8 +68,9 @@
 		CE73F47123C600D100B26D15 /* videoForDancerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = videoForDancerUITests.swift; sourceTree = "<group>"; };
 		CE73F47323C600D100B26D15 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CE73F48323C60A7300B26D15 /* PlayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
-		CE73F48523C613C400B26D15 /* video.m4v */ = {isa = PBXFileReference; lastKnownFileType = file; path = video.m4v; sourceTree = "<group>"; };
 		CEC4770223CC61C2003CE2F9 /* timerSoundEffect.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = timerSoundEffect.mp3; sourceTree = "<group>"; };
+		CED17CFD23DB26860010849A /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		CEDF5FEF23DA9CAF0033E7F2 /* sample_video.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = sample_video.mov; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,7 +126,7 @@
 		CE73F44D23C600CC00B26D15 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				CE73F44C23C600CC00B26D15 /* videoForDancer.app */,
+				CE73F44C23C600CC00B26D15 /* dancing mirror.app */,
 				CE73F46223C600D000B26D15 /* videoForDancerTests.xctest */,
 				CE73F46D23C600D100B26D15 /* videoForDancerUITests.xctest */,
 			);
@@ -141,11 +141,11 @@
 				CE73F45123C600CC00B26D15 /* SceneDelegate.swift */,
 				CE73F45323C600CC00B26D15 /* ViewController.swift */,
 				CE73F45523C600CC00B26D15 /* Main.storyboard */,
+				CED17CFD23DB26860010849A /* LaunchScreen.storyboard */,
 				CE73F48323C60A7300B26D15 /* PlayerView.swift */,
 				CE73F45823C600D000B26D15 /* Assets.xcassets */,
 				CEC4770223CC61C2003CE2F9 /* timerSoundEffect.mp3 */,
-				CE73F48523C613C400B26D15 /* video.m4v */,
-				CE73F45A23C600D000B26D15 /* LaunchScreen.storyboard */,
+				CEDF5FEF23DA9CAF0033E7F2 /* sample_video.mov */,
 				CE73F45D23C600D000B26D15 /* Info.plist */,
 			);
 			path = videoForDancer;
@@ -186,7 +186,7 @@
 			);
 			name = videoForDancer;
 			productName = videoForDancer;
-			productReference = CE73F44C23C600CC00B26D15 /* videoForDancer.app */;
+			productReference = CE73F44C23C600CC00B26D15 /* dancing mirror.app */;
 			productType = "com.apple.product-type.application";
 		};
 		CE73F46123C600D000B26D15 /* videoForDancerTests */ = {
@@ -273,10 +273,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CE73F48623C6B8C700B26D15 /* video.m4v in Resources */,
-				CE73F45C23C600D000B26D15 /* LaunchScreen.storyboard in Resources */,
 				CE73F45923C600D000B26D15 /* Assets.xcassets in Resources */,
 				CEC4770323CC61C2003CE2F9 /* timerSoundEffect.mp3 in Resources */,
+				CEDF5FF023DA9CAF0033E7F2 /* sample_video.mov in Resources */,
+				CED17CFE23DB26870010849A /* LaunchScreen.storyboard in Resources */,
 				CE73F45723C600CC00B26D15 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -355,14 +355,6 @@
 				CE73F45623C600CC00B26D15 /* Base */,
 			);
 			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		CE73F45A23C600D000B26D15 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				CE73F45B23C600D000B26D15 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -486,15 +478,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = BZQJRF4997;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = 773HPS9BL8;
 				INFOPLIST_FILE = videoForDancer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.babbayo.videoForDancer;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.yaco.dancingmirror;
+				PRODUCT_NAME = "dancing mirror";
+				PROVISIONING_PROFILE_SPECIFIER = yaco.wild.test;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -504,15 +498,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = BZQJRF4997;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = 773HPS9BL8;
 				INFOPLIST_FILE = videoForDancer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.babbayo.videoForDancer;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.yaco.dancingmirror;
+				PRODUCT_NAME = "dancing mirror";
+				PROVISIONING_PROFILE_SPECIFIER = yaco;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -523,7 +519,9 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 773HPS9BL8;
 				INFOPLIST_FILE = videoForDancerTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -535,7 +533,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/videoForDancer.app/videoForDancer";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/dancing mirror.app/dancing mirror";
 			};
 			name = Debug;
 		};
@@ -544,7 +542,9 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 773HPS9BL8;
 				INFOPLIST_FILE = videoForDancerTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -556,7 +556,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/videoForDancer.app/videoForDancer";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/dancing mirror.app/dancing mirror";
 			};
 			name = Release;
 		};
@@ -564,7 +564,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 773HPS9BL8;
 				INFOPLIST_FILE = videoForDancerUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -573,6 +576,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.babbayo.videoForDancerUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = videoForDancer;
@@ -583,7 +588,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = BZQJRF4997;
 				INFOPLIST_FILE = videoForDancerUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

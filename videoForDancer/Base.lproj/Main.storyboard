@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="6lk-KG-PTw">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="6lk-KG-PTw">
     <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -10,20 +10,100 @@
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="videoForDancer" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="dancing_mirror" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DKI-pY-hlc" customClass="PlayerView" customModule="videoForDancer" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DKI-pY-hlc" customClass="PlayerView" customModule="dancing_mirror" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="44" width="414" height="818"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <view contentMode="scaleToFill" restorationIdentifier="UpControlView" translatesAutoresizingMaskIntoConstraints="NO" id="TCv-Jh-HPZ">
+                                <rect key="frame" x="0.0" y="44" width="414" height="60"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="ntV-MT-KM0">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="60"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N11-5z-Uoc">
+                                                <rect key="frame" x="0.0" y="0.0" width="69" height="60"/>
+                                                <state key="normal" image="scale"/>
+                                                <connections>
+                                                    <action selector="toggleScale:" destination="BYZ-38-t0r" eventType="touchUpInside" id="bmq-PY-zap"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OHH-cu-eTD">
+                                                <rect key="frame" x="69" y="0.0" width="69" height="60"/>
+                                                <state key="normal" image="mirror">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="toggleMirror:" destination="BYZ-38-t0r" eventType="touchUpInside" id="TZY-5U-hy9"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7fM-h2-hFa">
+                                                <rect key="frame" x="138" y="0.0" width="69" height="60"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <state key="normal" title="1.0x">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <state key="selected">
+                                                    <color key="titleColor" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="toggleSpeedRate:" destination="BYZ-38-t0r" eventType="touchUpInside" id="U3g-Mt-UUH"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z7U-hG-y3c">
+                                                <rect key="frame" x="207" y="0.0" width="69" height="60"/>
+                                                <state key="normal" image="clock-normal">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <state key="selected" image="clock-active">
+                                                    <color key="titleColor" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="toggleDelay:" destination="BYZ-38-t0r" eventType="touchUpInside" id="mSx-n0-g9n"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EHO-TY-n34">
+                                                <rect key="frame" x="276" y="0.0" width="69" height="60"/>
+                                                <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="18"/>
+                                                <state key="normal" image="repeat">
+                                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="small"/>
+                                                </state>
+                                                <state key="selected" image="repeat-active"/>
+                                                <connections>
+                                                    <action selector="toggleRepeat:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ZFQ-B8-1yJ"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VtV-br-ABF">
+                                                <rect key="frame" x="345" y="0.0" width="69" height="60"/>
+                                                <state key="normal" image="folder">
+                                                    <color key="titleColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="tapModal:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ACe-0L-jAU"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.5" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="ntV-MT-KM0" firstAttribute="top" secondItem="TCv-Jh-HPZ" secondAttribute="top" id="53u-51-icx"/>
+                                    <constraint firstAttribute="bottom" secondItem="ntV-MT-KM0" secondAttribute="bottom" id="54Y-jS-WCQ"/>
+                                    <constraint firstAttribute="trailing" secondItem="ntV-MT-KM0" secondAttribute="trailing" id="8kX-E1-fpW"/>
+                                    <constraint firstItem="ntV-MT-KM0" firstAttribute="leading" secondItem="TCv-Jh-HPZ" secondAttribute="leading" id="COg-Ke-Qr6"/>
+                                    <constraint firstAttribute="height" constant="60" id="RnH-Dj-tAB"/>
+                                </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8wK-Ix-FD8">
-                                <rect key="frame" x="187" y="428" width="40" height="40"/>
+                                <rect key="frame" x="167" y="408" width="80" height="80"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="9JN-ut-g5h"/>
-                                    <constraint firstAttribute="width" constant="40" id="XyJ-kZ-6by"/>
+                                    <constraint firstAttribute="height" constant="80" id="9JN-ut-g5h"/>
+                                    <constraint firstAttribute="width" constant="80" id="XyJ-kZ-6by"/>
                                 </constraints>
                                 <state key="normal" image="play">
                                     <color key="titleColor" systemColor="opaqueSeparatorColor" red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -32,91 +112,57 @@
                                     <action selector="togglePlay:" destination="BYZ-38-t0r" eventType="touchUpInside" id="kZR-kf-0qj"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="upP-6o-QNu">
-                                <rect key="frame" x="352" y="761" width="42" height="21"/>
-                                <color key="backgroundColor" systemColor="opaqueSeparatorColor" red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a1V-U2-iyf">
-                                <rect key="frame" x="20" y="761" width="42" height="21"/>
-                                <color key="backgroundColor" systemColor="opaqueSeparatorColor" red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OHH-cu-eTD">
-                                <rect key="frame" x="242" y="756.66666666666663" width="42" height="30"/>
-                                <color key="backgroundColor" systemColor="opaqueSeparatorColor" red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" title="Mirror">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <connections>
-                                    <action selector="flipHorizontallyBarButtonItemTouched:" destination="BYZ-38-t0r" eventType="touchUpInside" id="aNM-Ub-FYT"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7fM-h2-hFa">
-                                <rect key="frame" x="192" y="756.66666666666663" width="30" height="30"/>
-                                <color key="backgroundColor" systemColor="opaqueSeparatorColor" red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" title="1x">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <connections>
-                                    <action selector="toggleSpeedRate:" destination="BYZ-38-t0r" eventType="touchUpInside" id="U3g-Mt-UUH"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VtV-br-ABF">
-                                <rect key="frame" x="364" y="64" width="30" height="28"/>
-                                <state key="normal" image="folder">
-                                    <color key="titleColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                </state>
-                                <connections>
-                                    <action selector="tapModal:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ACe-0L-jAU"/>
-                                </connections>
-                            </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gLB-ih-jKh" customClass="ABVideoRangeSlider" customModule="videoForDancer" customModuleProvider="target">
-                                <rect key="frame" x="16" y="802" width="382" height="60"/>
-                                <color key="backgroundColor" systemColor="opaqueSeparatorColor" red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gMA-dd-Iya">
+                                <rect key="frame" x="0.0" y="754" width="414" height="108"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gLB-ih-jKh" customClass="ABVideoRangeSlider" customModule="dancing_mirror" customModuleProvider="target">
+                                        <rect key="frame" x="26" y="43" width="362" height="56"/>
+                                        <color key="backgroundColor" systemColor="opaqueSeparatorColor" red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="56" id="xgP-N9-mzL"/>
+                                        </constraints>
+                                    </view>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a1V-U2-iyf">
+                                        <rect key="frame" x="356.33333333333331" y="5" width="41.666666666666686" height="20.333333333333332"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="upP-6o-QNu">
+                                        <rect key="frame" x="15.999999999999996" y="5" width="41.666666666666657" height="20.333333333333332"/>
+                                        <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.5" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="60" id="xgP-N9-mzL"/>
+                                    <constraint firstItem="gLB-ih-jKh" firstAttribute="leading" secondItem="gMA-dd-Iya" secondAttribute="leading" constant="26" id="Jib-f8-Qy0"/>
+                                    <constraint firstItem="upP-6o-QNu" firstAttribute="leading" secondItem="gMA-dd-Iya" secondAttribute="leading" constant="16" id="LWV-Vx-55c"/>
+                                    <constraint firstAttribute="height" constant="108" id="lbE-Ca-mz2"/>
+                                    <constraint firstAttribute="bottom" secondItem="gLB-ih-jKh" secondAttribute="bottom" constant="9" id="rEC-Tb-pB5"/>
+                                    <constraint firstItem="upP-6o-QNu" firstAttribute="top" secondItem="gMA-dd-Iya" secondAttribute="top" constant="5" id="t2r-Ql-0Eq"/>
+                                    <constraint firstAttribute="trailing" secondItem="a1V-U2-iyf" secondAttribute="trailing" constant="16" id="v1z-Dj-TA0"/>
+                                    <constraint firstItem="a1V-U2-iyf" firstAttribute="top" secondItem="gMA-dd-Iya" secondAttribute="top" constant="5" id="xqS-QN-N3v"/>
+                                    <constraint firstAttribute="trailing" secondItem="gLB-ih-jKh" secondAttribute="trailing" constant="26" id="xqw-58-Xfm"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z7U-hG-y3c">
-                                <rect key="frame" x="142" y="756.66666666666663" width="30" height="30"/>
-                                <color key="backgroundColor" systemColor="opaqueSeparatorColor" red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" image="clock">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <connections>
-                                    <action selector="toggleDelay:" destination="BYZ-38-t0r" eventType="touchUpInside" id="mSx-n0-g9n"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="gLB-ih-jKh" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="53h-ug-kSa"/>
+                            <constraint firstItem="gMA-dd-Iya" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="0vn-WD-2pV"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="DKI-pY-hlc" secondAttribute="bottom" id="5xB-ES-ogs"/>
-                            <constraint firstItem="7fM-h2-hFa" firstAttribute="leading" secondItem="Z7U-hG-y3c" secondAttribute="trailing" constant="20" id="Aez-VM-Fgw"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="DKI-pY-hlc" secondAttribute="trailing" id="BoG-YI-ewO"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="gLB-ih-jKh" secondAttribute="trailing" constant="16" id="IW5-7S-gXy"/>
-                            <constraint firstItem="Z7U-hG-y3c" firstAttribute="centerY" secondItem="a1V-U2-iyf" secondAttribute="centerY" id="MEU-gI-Vb3"/>
-                            <constraint firstItem="gLB-ih-jKh" firstAttribute="top" secondItem="upP-6o-QNu" secondAttribute="bottom" constant="20" id="U4d-Pl-V10"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="upP-6o-QNu" secondAttribute="trailing" constant="20" id="bqW-ie-aw0"/>
-                            <constraint firstItem="7fM-h2-hFa" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="c04-RF-Ktn"/>
-                            <constraint firstItem="upP-6o-QNu" firstAttribute="centerY" secondItem="OHH-cu-eTD" secondAttribute="centerY" id="kHG-O3-LoG"/>
-                            <constraint firstItem="gLB-ih-jKh" firstAttribute="top" secondItem="a1V-U2-iyf" secondAttribute="bottom" constant="20" id="lSy-so-ePN"/>
+                            <constraint firstItem="TCv-Jh-HPZ" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="C5Z-Jv-PrM"/>
+                            <constraint firstItem="gMA-dd-Iya" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="QBe-rk-NqL"/>
+                            <constraint firstItem="gMA-dd-Iya" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Rwu-oF-yPR"/>
+                            <constraint firstItem="TCv-Jh-HPZ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="VZ6-l4-B1R"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="TCv-Jh-HPZ" secondAttribute="trailing" id="Vf4-US-ao5"/>
                             <constraint firstItem="8wK-Ix-FD8" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="mWd-Ob-Pg8"/>
-                            <constraint firstItem="VtV-br-ABF" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="mtP-ct-Uk0"/>
-                            <constraint firstItem="OHH-cu-eTD" firstAttribute="leading" secondItem="7fM-h2-hFa" secondAttribute="trailing" constant="20" id="oSL-yJ-lLm"/>
                             <constraint firstItem="8wK-Ix-FD8" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="qqV-JK-fT6"/>
                             <constraint firstItem="DKI-pY-hlc" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="rfF-Pe-YLA"/>
-                            <constraint firstItem="a1V-U2-iyf" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="rqJ-Ss-jYi"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="gLB-ih-jKh" secondAttribute="bottom" id="ugE-5m-T2d"/>
                             <constraint firstItem="8wK-Ix-FD8" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="ulX-ek-iOQ"/>
-                            <constraint firstItem="OHH-cu-eTD" firstAttribute="centerY" secondItem="7fM-h2-hFa" secondAttribute="centerY" id="vk2-A8-qIm"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="VtV-br-ABF" secondAttribute="trailing" constant="20" id="x4r-fz-ekc"/>
                             <constraint firstItem="DKI-pY-hlc" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="y7e-gW-1RE"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -124,13 +170,17 @@
                     <navigationItem key="navigationItem" largeTitleDisplayMode="never" id="l9Z-2s-0hR"/>
                     <connections>
                         <outlet property="delayButton" destination="Z7U-hG-y3c" id="5Yi-fV-6fz"/>
-                        <outlet property="durationLabel" destination="upP-6o-QNu" id="R4p-dx-U1E"/>
+                        <outlet property="downSideControlView" destination="gMA-dd-Iya" id="vqD-7W-1m4"/>
+                        <outlet property="durationLabel" destination="a1V-U2-iyf" id="Coy-Sx-vkv"/>
                         <outlet property="mirrorModeButton" destination="OHH-cu-eTD" id="6G4-WS-fp7"/>
                         <outlet property="photoAccessButton" destination="VtV-br-ABF" id="fXz-Pk-TmS"/>
                         <outlet property="playPauseButton" destination="8wK-Ix-FD8" id="Xkb-eb-5zt"/>
                         <outlet property="playerView" destination="DKI-pY-hlc" id="gFc-Il-9Br"/>
+                        <outlet property="repeatButton" destination="EHO-TY-n34" id="85G-kQ-1ap"/>
+                        <outlet property="scaleButton" destination="N11-5z-Uoc" id="laZ-Cy-N5I"/>
                         <outlet property="speedRateButton" destination="7fM-h2-hFa" id="moT-Tf-AtU"/>
-                        <outlet property="startTimeLabel" destination="a1V-U2-iyf" id="km3-hD-ZQ9"/>
+                        <outlet property="startTimeLabel" destination="upP-6o-QNu" id="Af3-qU-4aP"/>
+                        <outlet property="upsideControlView" destination="TCv-Jh-HPZ" id="BNf-eI-aUA"/>
                         <outlet property="videoRangeSlider" destination="gLB-ih-jKh" id="uio-ho-7Qa"/>
                     </connections>
                 </viewController>
@@ -157,8 +207,13 @@
         </scene>
     </scenes>
     <resources>
-        <image name="clock" width="30" height="30"/>
-        <image name="folder" width="30" height="28"/>
-        <image name="play" width="54" height="68"/>
+        <image name="clock-active" width="27" height="31"/>
+        <image name="clock-normal" width="27" height="31"/>
+        <image name="folder" width="30" height="25"/>
+        <image name="mirror" width="30" height="28"/>
+        <image name="play" width="72" height="72"/>
+        <image name="repeat" width="26" height="28"/>
+        <image name="repeat-active" width="26" height="28"/>
+        <image name="scale" width="30" height="30"/>
     </resources>
 </document>

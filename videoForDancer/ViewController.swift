@@ -16,8 +16,13 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
     let imageManager = PHCachingImageManager()
     let player = AVPlayer()
     
+    private var scale: AVLayerVideoGravity = AVLayerVideoGravity.resizeAspect
+    
+    private var rect: CGRect?
     private var speedRate: Float = 1.0
     private var delaySeconds: Int = 0
+    private var repeatable: Bool = false
+    private var isEndProcessRun: Bool = false
     
     var timerForHide: Timer?
     
@@ -52,7 +57,7 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
         if #available(iOS 11.0, *) {
             picker.videoExportPreset = AVAssetExportPresetPassthrough
         }
-//        picker.videoQuality = .typeHigh
+        //        picker.videoQuality = .typeHigh
         return picker
     }()
     
@@ -77,23 +82,29 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
     private var playerTimeControlStatusObserver: NSKeyValueObservation?
     
     // MARK: - IBOutlet properties
+    @IBOutlet weak var upsideControlView: UIView!
+    @IBOutlet weak var downSideControlView: UIView!
     @IBOutlet weak var playerView: PlayerView!
-//    @IBOutlet weak var timeSlider: UISlider!
-    @IBOutlet weak var startTimeLabel: UILabel!
-    @IBOutlet weak var durationLabel: UILabel!
-    @IBOutlet weak var playPauseButton: UIButton!
+    
+    @IBOutlet weak var scaleButton: UIButton!
+    
+    @IBOutlet weak var mirrorModeButton: UIButton!
     @IBOutlet weak var speedRateButton: UIButton!
     @IBOutlet weak var delayButton: UIButton!
-    @IBOutlet weak var mirrorModeButton: UIButton!
+    @IBOutlet weak var repeatButton: UIButton!
+    @IBOutlet weak var playPauseButton: UIButton!
     @IBOutlet weak var photoAccessButton: UIButton!
+    @IBOutlet weak var startTimeLabel: UILabel!
+    @IBOutlet weak var durationLabel: UILabel!
     @IBOutlet weak var videoRangeSlider: ABVideoRangeSlider!
-
+    
+    
     
     // MARK: - View Controller
     override func viewDidLoad() {
         super.viewDidLoad()
         guard let movieURL =
-            Bundle.main.url(forResource: "video", withExtension: "m4v") else {
+            Bundle.main.url(forResource: "sample_video", withExtension: "mov") else {
                 print("no video")
                 return
         }
@@ -105,6 +116,8 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(toggleControls))
         view.addGestureRecognizer(tapGesture)
         
+        //        self.playerView.clipsToBounds = false
+        //        self.playerView.translatesAutoresizingMaskIntoConstraints = false
         do {
             try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: [])
         }
@@ -114,26 +127,17 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
     }
     
     @objc func toggleControls() {
-//        timeSlider.isHidden = !timeSlider.isHidden
-        startTimeLabel.isHidden = !startTimeLabel.isHidden
-        durationLabel.isHidden = !durationLabel.isHidden
+        upsideControlView.isHidden = !upsideControlView.isHidden
+        downSideControlView.isHidden = !downSideControlView.isHidden
         playPauseButton.isHidden = !playPauseButton.isHidden
-        speedRateButton.isHidden = !speedRateButton.isHidden
-        delayButton.isHidden = !delayButton.isHidden
-        mirrorModeButton.isHidden = !mirrorModeButton.isHidden
-        photoAccessButton.isHidden = !photoAccessButton.isHidden
+        
         resetTimer()
     }
     
     @objc func hideControls() {
-//        timeSlider.isHidden = true
-        startTimeLabel.isHidden = true
-        durationLabel.isHidden = true
+        upsideControlView.isHidden = true
+        downSideControlView.isHidden = true
         playPauseButton.isHidden = true
-        speedRateButton.isHidden = true
-        delayButton.isHidden = true
-        mirrorModeButton.isHidden = true
-        photoAccessButton.isHidden = true
     }
     
     func resetTimer() {
@@ -219,14 +223,14 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
     
     // MARK: - ABVideoRangeSlider handling
     func didChangeValue(videoRangeSlider: ABVideoRangeSlider, startTime: Float64, endTime: Float64) {
-//        print("didChangeValue : \(startTime) - \(endTime)")
+        //        print("didChangeValue : \(startTime) - \(endTime)")
     }
     
     func indicatorDidChangePosition(videoRangeSlider: ABVideoRangeSlider, position: Float64) {
         let current = player.currentTime()
         let newTime = CMTime(seconds: Double(position), preferredTimescale: 600)
         if current != newTime {
-            print("position of indicator: \(position)|\(current)|\(newTime)")
+//            print("position of indicator: \(position)|\(current)|\(newTime)")
             player.seek(to: newTime, toleranceBefore: CMTime.zero, toleranceAfter: CMTime.zero)
         }
     }
@@ -250,9 +254,10 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
         self.playerTimeControlStatusObserver =
             self.player.observe(\AVPlayer.timeControlStatus, options: [.initial, .new]) { [unowned self]
                 (player, change) in
+                self.isEndProcessRun = false
                 self.setPlayPauseButtonImage()
         }
-     
+        
         /*
          Create a periodic observer to update the movie player time slider
          during playback.
@@ -264,14 +269,26 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
                 let timeElapsed = Float64(time.seconds)
                 let start = self.videoRangeSlider.getStartPosition()
                 let end = self.videoRangeSlider.getEndPosition()
-                if end < timeElapsed {
-//                    print("time chekcer : \(start) < \(timeElapsed) < \(end) ")
+                let isSectionEnd = end < timeElapsed
+                let isEnd = self.player.currentItem?.currentTime() == self.player.currentItem?.duration
+                if (isSectionEnd || isEnd) && !self.isEndProcessRun {
+                    self.isEndProcessRun = true
+                    
                     let newTime = CMTime(seconds: Double(start), preferredTimescale: 600)
-                    self.player.seek(to: newTime, toleranceBefore: CMTime.zero, toleranceAfter: CMTime.zero)
+                    
+                    if !self.repeatable {
+                        self.player.pause()
+                    }
+                    
+                    self.player.seek(to: newTime, completionHandler: {isDone in
+                        if self.repeatable {
+                            self.player.play()
+                        }
+                    })
                     return
                 }
                 
-//                self.timeSlider.value = Float(timeElapsed)
+                //                self.timeSlider.value = Float(timeElapsed)
                 self.videoRangeSlider.setProgressPosition(seconds: Float(timeElapsed))
                 self.startTimeLabel.text = self.createTimeString(time: Float(timeElapsed))
         }
@@ -303,9 +320,9 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
              If the player item already played to its end time, seek back to
              the beginning.
              */
-            if player.currentItem?.currentTime() == player.currentItem?.duration {
-                player.currentItem?.seek(to: CMTime.zero, completionHandler: nil)
-            }
+//            if player.currentItem?.currentTime() == player.currentItem?.duration {
+//                player.currentItem?.seek(to: CMTime.zero, completionHandler: nil)
+//            }
             // The player is currently paused. Begin playback.
             if delaySeconds > 0 {
                 nextDelay(delaySeconds)
@@ -319,10 +336,10 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
     
     func nextDelay(_ remainSeconds: Int) {
         let alert = UIAlertController(title: "\(remainSeconds)", message: "", preferredStyle: .alert)
-
+        
         self.alertAudioPlayer?.play()
         self.present(alert, animated: true, completion: nil)
-
+        
         // change to desired number of seconds
         let now = DispatchTime.now()
         DispatchQueue.main.asyncAfter(deadline: now + 0.7) {
@@ -341,36 +358,50 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
         player.play()
     }
     
+    
+    @IBAction func toggleScale(_ sender: UIButton) {
+        self.scale = scale == AVLayerVideoGravity.resizeAspectFill ? AVLayerVideoGravity.resizeAspect : AVLayerVideoGravity.resizeAspectFill
+        self.playerView.playerLayer.videoGravity = scale
+    }
+    
+    @IBAction func toggleMirror(_ sender: UIBarButtonItem) {
+        UIView.animate(withDuration: 0.2) { [unowned self] in
+            self.playerView.transform = self.playerView.transform.concatenating(CGAffineTransform(scaleX: -1, y: 1))
+        }
+    }
+    
     @IBAction func toggleSpeedRate(_ sender: UIButton) {
-        print("toogleSpeedRate: \(self.player.rate)")
+        print("toogleSpeedRate: \(speedRate)")
         speedRate = speedRate == 1.0 ? 1.3 : (speedRate > 1.0 ? 0.7 : 1.0)
         if self.player.timeControlStatus == .playing {
             self.player.rate = speedRate
         }
         
+        let isNormalRate = speedRate == 1.0
         let title = "\(speedRate)x"
-        self.speedRateButton.setTitle(title, for: .normal)
+        let state: UIControl.State = isNormalRate ? .normal : .selected
+        self.speedRateButton.setTitle(title, for: state)
+        self.speedRateButton.isSelected = !isNormalRate
     }
+    
     
     @IBAction func toggleDelay(_ sender: UIButton) {
         print("toogleSpeedRate: \(self.player.rate)")
         delaySeconds = delaySeconds == 0 ? 3 : (delaySeconds == 3 ? 5 : 0)
-        let delayText = delaySeconds == 0 ? "" : "\(delaySeconds)";
-         self.delayButton.setTitle(delayText, for: .normal)
+        
+        let isNormalRate = delaySeconds == 0
+        let title = isNormalRate ? "": "\(delaySeconds)"
+        let state: UIControl.State = isNormalRate ? .normal : .selected
+        self.delayButton.setTitle(title, for: state)
+        self.delayButton.isSelected = !isNormalRate
     }
     
-    /// - Tag: TimeSliderDidChange
-    @IBAction func timeSliderDidChange(_ sender: UISlider) {
-        print("timeSliderDidChange")
-        let newTime = CMTime(seconds: Double(sender.value), preferredTimescale: 600)
-        player.seek(to: newTime, toleranceBefore: CMTime.zero, toleranceAfter: CMTime.zero)
+    @IBAction func toggleRepeat(_ sender: UIButton) {
+        self.repeatable = !self.repeatable
+        self.repeatButton.isSelected = repeatable
     }
     
-    @IBAction func flipHorizontallyBarButtonItemTouched(_ sender: UIBarButtonItem) {
-        UIView.animate(withDuration: 0.2) { [unowned self] in
-            self.playerView.transform = self.playerView.transform.concatenating(CGAffineTransform(scaleX: -1, y: 1))
-        }
-    }
+    
     // MARK: - Error Handling
     func handleErrorWithMessage(_ message: String, error: Error? = nil) {
         if let err = error {
