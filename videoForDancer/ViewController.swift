@@ -11,7 +11,7 @@ import Photos
 import Foundation
 import AVFoundation
 
-class ViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, ABVideoRangeSliderDelegate {
+class ViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, ABVideoRangeSliderDelegate, UIScrollViewDelegate {
     
     let imageManager = PHCachingImageManager()
     let player = AVPlayer()
@@ -23,6 +23,7 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
     private var delaySeconds: Int = 0
     private var repeatable: Bool = false
     private var isEndProcessRun: Bool = false
+    private var isRunningBeforeMoving: Bool = false
     
     var timerForHide: Timer?
     
@@ -115,6 +116,12 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(toggleControls))
         view.addGestureRecognizer(tapGesture)
+//        let zoomGesture = UIPinchGestureRecognizer(target: self, action: #selector(zoomPlayer))
+        
+//        let moveGesture = UIPanGestureRecognizer(target: self, action: #selector(movePlayer))
+        
+//        playerView.addGestureRecognizer(zoomGesture)
+//        playerView.addGestureRecognizer(moveGesture)
         
         //        self.playerView.clipsToBounds = false
         //        self.playerView.translatesAutoresizingMaskIntoConstraints = false
@@ -134,6 +141,40 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
         resetTimer()
     }
     
+    @objc func zoomPlayer(_ gestureRecognizer : UIPinchGestureRecognizer) {
+      guard gestureRecognizer.view != nil else { return }
+        if gestureRecognizer.state == .began || gestureRecognizer.state == .changed {
+            gestureRecognizer.view?.transform = (gestureRecognizer.view?.transform.scaledBy(x: gestureRecognizer.scale, y: gestureRecognizer.scale))!
+           gestureRecognizer.scale = 1.0
+            
+        }
+    }
+    
+    var initialCenter = CGPoint()
+    @objc func movePlayer(_ gestureRecognizer : UIPanGestureRecognizer) {
+      guard gestureRecognizer.view != nil else {return}
+      let piece = gestureRecognizer.view!
+      // Get the changes in the X and Y directions relative to
+      // the superview's coordinate space.
+      let translation = gestureRecognizer.translation(in: piece.superview)
+      if gestureRecognizer.state == .began {
+         // Save the view's original position.
+         self.initialCenter = piece.center
+      }
+         // Update the position for the .began, .changed, and .ended states
+      if gestureRecognizer.state != .cancelled {
+         // Add the X and Y translation to the view's original position.
+         let newCenter = CGPoint(x: initialCenter.x + translation.x, y: initialCenter.y + translation.y)
+        
+//        piece.transform = (piece.transform.translatedBy(x: translation.x + initialCenter.x, y: translation.y + initialCenter.y))
+         piece.center = newCenter
+      }
+      else {
+         // On cancellation, return the piece to its original location.
+         piece.center = initialCenter
+      }
+    }
+    
     @objc func hideControls() {
         upsideControlView.isHidden = true
         downSideControlView.isHidden = true
@@ -143,6 +184,11 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
     func resetTimer() {
         timerForHide?.invalidate()
         timerForHide = Timer.scheduledTimer(timeInterval: 10.0, target: self, selector: #selector(hideControls), userInfo: nil, repeats: false)
+    }
+    
+    // MAKR: scrollViewDekegate handling
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+        return playerView
     }
     
     // MARK: imagePickerController handling
@@ -229,9 +275,23 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
     func indicatorDidChangePosition(videoRangeSlider: ABVideoRangeSlider, position: Float64) {
         let current = player.currentTime()
         let newTime = CMTime(seconds: Double(position), preferredTimescale: 600)
+//        print("indicatorDidChangePosition : \(videoRangeSlider.isReceivingGesture)")
         if current != newTime {
-//            print("position of indicator: \(position)|\(current)|\(newTime)")
             player.seek(to: newTime, toleranceBefore: CMTime.zero, toleranceAfter: CMTime.zero)
+            
+        }
+    }
+    
+    func sliderGesturesBegan() {
+        isRunningBeforeMoving = player.timeControlStatus == .playing
+        if (isRunningBeforeMoving) {
+            player.pause()
+        }
+    }
+    
+    func sliderGesturesEnded() {
+        if isRunningBeforeMoving {
+            player.play()
         }
     }
     

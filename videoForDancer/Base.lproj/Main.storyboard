@@ -15,10 +15,28 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DKI-pY-hlc" customClass="PlayerView" customModule="dancing_mirror" customModuleProvider="target">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" maximumZoomScale="3" translatesAutoresizingMaskIntoConstraints="NO" id="Igl-H5-mmc">
                                 <rect key="frame" x="0.0" y="44" width="414" height="818"/>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </view>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DKI-pY-hlc" customClass="PlayerView" customModule="dancing_mirror" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="818"/>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="DKI-pY-hlc" firstAttribute="height" secondItem="Igl-H5-mmc" secondAttribute="height" id="JlI-Gr-GOv"/>
+                                    <constraint firstItem="DKI-pY-hlc" firstAttribute="width" secondItem="Igl-H5-mmc" secondAttribute="width" id="Pw3-3Z-wkk"/>
+                                    <constraint firstItem="DKI-pY-hlc" firstAttribute="bottom" secondItem="Igl-H5-mmc" secondAttribute="bottom" id="RZd-O0-1Ri"/>
+                                    <constraint firstItem="DKI-pY-hlc" firstAttribute="leading" secondItem="Igl-H5-mmc" secondAttribute="leading" id="f1S-N2-cLC"/>
+                                    <constraint firstItem="DKI-pY-hlc" firstAttribute="trailing" secondItem="Igl-H5-mmc" secondAttribute="trailing" id="lxf-bd-wAb"/>
+                                    <constraint firstItem="DKI-pY-hlc" firstAttribute="top" secondItem="Igl-H5-mmc" secondAttribute="top" id="uNn-WP-kiT"/>
+                                </constraints>
+                                <viewLayoutGuide key="contentLayoutGuide" id="wfx-Z8-B5s"/>
+                                <viewLayoutGuide key="frameLayoutGuide" id="Eyc-p3-dkt"/>
+                                <connections>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="SV9-7R-i1N"/>
+                                </connections>
+                            </scrollView>
                             <view contentMode="scaleToFill" restorationIdentifier="UpControlView" translatesAutoresizingMaskIntoConstraints="NO" id="TCv-Jh-HPZ">
                                 <rect key="frame" x="0.0" y="44" width="414" height="60"/>
                                 <subviews>
@@ -152,18 +170,18 @@
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="gMA-dd-Iya" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="0vn-WD-2pV"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="DKI-pY-hlc" secondAttribute="bottom" id="5xB-ES-ogs"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="DKI-pY-hlc" secondAttribute="trailing" id="BoG-YI-ewO"/>
+                            <constraint firstItem="Igl-H5-mmc" firstAttribute="leading" secondItem="gMA-dd-Iya" secondAttribute="leading" id="7g2-3M-Aah"/>
                             <constraint firstItem="TCv-Jh-HPZ" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="C5Z-Jv-PrM"/>
                             <constraint firstItem="gMA-dd-Iya" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="QBe-rk-NqL"/>
                             <constraint firstItem="gMA-dd-Iya" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Rwu-oF-yPR"/>
                             <constraint firstItem="TCv-Jh-HPZ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="VZ6-l4-B1R"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="TCv-Jh-HPZ" secondAttribute="trailing" id="Vf4-US-ao5"/>
+                            <constraint firstItem="Igl-H5-mmc" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="fAt-mF-G5y"/>
                             <constraint firstItem="8wK-Ix-FD8" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="mWd-Ob-Pg8"/>
+                            <constraint firstItem="Igl-H5-mmc" firstAttribute="trailing" secondItem="gMA-dd-Iya" secondAttribute="trailing" id="nqx-je-OLh"/>
+                            <constraint firstItem="Igl-H5-mmc" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="odw-9s-54g"/>
                             <constraint firstItem="8wK-Ix-FD8" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="qqV-JK-fT6"/>
-                            <constraint firstItem="DKI-pY-hlc" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="rfF-Pe-YLA"/>
                             <constraint firstItem="8wK-Ix-FD8" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="ulX-ek-iOQ"/>
-                            <constraint firstItem="DKI-pY-hlc" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="y7e-gW-1RE"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
