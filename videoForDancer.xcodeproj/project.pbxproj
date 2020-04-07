@@ -486,6 +486,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 2.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.yaco.dancingmirror;
 				PRODUCT_NAME = "dancing mirror";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -506,6 +507,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 2.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.yaco.dancingmirror;
 				PRODUCT_NAME = "dancing mirror";
 				PROVISIONING_PROFILE_SPECIFIER = "";
